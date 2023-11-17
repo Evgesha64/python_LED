@@ -31,7 +31,7 @@ def on_message(client, userdata, msg):
 client.on_message = on_message
 client.on_connect = on_connect
 
-s: int = int(input("Введите количество циклов:"))
+s: int = int(input("Введите количество циклов1:"))
 print(s)
 start_time1 = time.time()
 for k in (0, s):
