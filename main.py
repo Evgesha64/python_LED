@@ -31,13 +31,14 @@ def on_message(client, userdata, msg):
 client.on_message = on_message
 client.on_connect = on_connect
 
-s: int = int(input("Введите количество циклов1:"))
+s: int = int(input("Введите количество циклов:"))
+t: int = int(input("Введите количество тактов:"))
 print(s)
 start_time1 = time.time()
 for k in (0, s):
     cklnumber = 0
 
-    while cklnumber < 59:
+    while cklnumber < t:
 
         client.loop()
 
@@ -54,4 +55,4 @@ for k in (0, s):
 
 
 print(time.time() - start_time1)
-print("fps-", s * 59 / (time.time() - start_time1))
+print("fps-", s * t / (time.time() - start_time1))
