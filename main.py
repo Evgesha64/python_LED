@@ -7,8 +7,9 @@ import asyncio
 # Настройки подключения MQTT
 mqtt_broker = "192.168.0.103"
 mqtt_port = 1883
-mqtt_topic = "topik"
-mqtt_topic2 = "topicCallback"
+mqtt_topic1 = "topic_ckl"
+mqtt_topic2 ="topic_num_RGB"
+mqtt_topic3 = "topicCallback"
 
 msg_out = '--'
 client = mqtt.Client()
@@ -20,7 +21,7 @@ def on_connect(client, userdata, flags, rc):
 
 client.connect(mqtt_broker, mqtt_port, 60)
 
-client.subscribe(mqtt_topic2)
+client.subscribe(mqtt_topic3)
 
 
 def on_message(client, userdata, msg):
@@ -46,7 +47,7 @@ for k in range(s):
 
         if msg_out != '---':
 
-            client.publish(mqtt_topic, cklnumber)
+            client.publish(mqtt_topic1, cklnumber)
             cklnumber += 1
             msg_out = '---'
            # print(cklnumber)
