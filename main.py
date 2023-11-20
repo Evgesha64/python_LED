@@ -5,10 +5,10 @@ from paho.mqtt.client import Client
 import asyncio
 
 # Настройки подключения MQTT
-mqtt_broker = "192.168.0.109"
+mqtt_broker = "192.168.0.103"
 mqtt_port = 1883
 mqtt_topic = "topik"
-mqtt_topic2 = "topik"
+mqtt_topic2 = "topicCallback"
 
 msg_out = '--'
 client = mqtt.Client()
@@ -33,11 +33,13 @@ client.on_connect = on_connect
 
 s: int = int(input("Введите количество циклов:"))
 t: int = int(input("Введите количество тактов:"))
+t -= 1
 print(s)
+print(t)
 start_time1 = time.time()
-for k in (0, s):
+for k in range(s):
     cklnumber = 0
-
+    #print("Цикл пройден:",cklnumber)
     while cklnumber < t:
 
         client.loop()
@@ -47,7 +49,7 @@ for k in (0, s):
             client.publish(mqtt_topic, cklnumber)
             cklnumber += 1
             msg_out = '---'
-            print(cklnumber)
+           # print(cklnumber)
         elif msg_out == '---':
             start_time = time.time()
             if time.time() - start_time > 5:
