@@ -31,7 +31,7 @@ def on_message(client, userdata, msg):
 
 client.on_message = on_message
 client.on_connect = on_connect
-start_time1 = time.time()
+
 f1 = 0
 string3 = ""
 s = 1
@@ -49,20 +49,19 @@ while True:
         case "1":
             print("Настройка генератора тактов")
             s = int(input("Введите количество циклов:"))
-            t = int(input("Введите количество тактов:"))
-            print(s, "\n", t)
+
+            print(s)
         case "2":
             print("Настройка записи цветов")
-            s1 = int(input("Введите количество линий:"))
-            t = int(input("Введите количество светодиодов:"))
-            print(s1, "\n", l)
+
         case "3":
+            start_time1 = time.time()
             for k in range(s):
                 cklnumber = 0
-                msg = str("dfjhd")
+
 
                 # print("Цикл пройден:",cklnumber)
-                while cklnumber < t:
+                while cklnumber < 2:
 
                     client.loop()
 
@@ -79,14 +78,14 @@ while True:
                         if time.time() - start_time > 5:
                             print('timeout')
                             print('Нет ответа от ESP!!!')
-                print(time.time() - start_time1)
-                print("fps-", s * t / (time.time() - start_time1))
+            print(time.time() - start_time1)
+            print("fps-", s * 2 / (time.time() - start_time1))
         case "4":
-            for k1 in range(l):
+            for k1 in range(2):
 
                 string = "#{}#".format(k1)
                 string3 = string3 + string
-                for k2 in range(ks):
+                for k2 in range(58):
                     if f1 == 0:
                         string2 = "{},{},{},{},".format(k2, 255, 0, 0)
                         string3 = string3 + string2
@@ -96,8 +95,9 @@ while True:
                     elif f1 == 2:
                         string2 = "{},{},{},{},".format(k2, 0, 0, 255)
                         string3 = string3 + string2
+                f1 = 1
             client.publish(mqtt_topic2, string3)
-
+            f1 = 0
 
 
 

@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8169d3a8-03f8-4755-a924-fa7d0bd1607d" name="Changes" comment="Добавил отправку RGB">
+    <list default="true" id="8169d3a8-03f8-4755-a924-fa7d0bd1607d" name="Changes" comment="Добавил меню">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -83,7 +83,8 @@
       <workItem from="1700728019069" duration="13245000" />
       <workItem from="1700803366905" duration="13825000" />
       <workItem from="1701064956411" duration="10423000" />
-      <workItem from="1701172670188" duration="6358000" />
+      <workItem from="1701172670188" duration="7277000" />
+      <workItem from="1701238406055" duration="5523000" />
     </task>
     <task id="LOCAL-00001" summary="Тактовый синхрогенератор версия1">
       <option name="closed" value="true" />
@@ -141,7 +142,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700748297220</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Добавил меню">
+      <option name="closed" value="true" />
+      <created>1701179445760</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1701179445760</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,9 +205,10 @@
     <MESSAGE value="Добавлен ввод количества тактов" />
     <MESSAGE value="Иссправлена ошибка с циклом for" />
     <MESSAGE value="Добавил отправку RGB" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавил отправку RGB" />
+    <MESSAGE value="Добавил меню" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавил меню" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/pythonProject4$main.coverage" NAME="main Coverage Results" MODIFIED="1701178627041" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/pythonProject4$main.coverage" NAME="main Coverage Results" MODIFIED="1701249373522" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
