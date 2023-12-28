@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8169d3a8-03f8-4755-a924-fa7d0bd1607d" name="Changes" comment="Добавил меню">
+    <list default="true" id="8169d3a8-03f8-4755-a924-fa7d0bd1607d" name="Changes" comment="На 2 такта с меню">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -15,6 +15,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/main.py" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -84,7 +87,10 @@
       <workItem from="1700803366905" duration="13825000" />
       <workItem from="1701064956411" duration="10423000" />
       <workItem from="1701172670188" duration="7277000" />
-      <workItem from="1701238406055" duration="5523000" />
+      <workItem from="1701238406055" duration="20853000" />
+      <workItem from="1703597571233" duration="1352000" />
+      <workItem from="1703657920967" duration="22578000" />
+      <workItem from="1703741843465" duration="9248000" />
     </task>
     <task id="LOCAL-00001" summary="Тактовый синхрогенератор версия1">
       <option name="closed" value="true" />
@@ -150,7 +156,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701179445760</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="На 2 такта с меню">
+      <option name="closed" value="true" />
+      <created>1701251500029</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1701251500029</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -206,9 +220,10 @@
     <MESSAGE value="Иссправлена ошибка с циклом for" />
     <MESSAGE value="Добавил отправку RGB" />
     <MESSAGE value="Добавил меню" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавил меню" />
+    <MESSAGE value="На 2 такта с меню" />
+    <option name="LAST_COMMIT_MESSAGE" value="На 2 такта с меню" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/pythonProject4$main.coverage" NAME="main Coverage Results" MODIFIED="1701249373522" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/pythonProject4$main.coverage" NAME="main Coverage Results" MODIFIED="1703756103935" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
