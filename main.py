@@ -1,6 +1,9 @@
 import time
 import pyautogui
 import paho.mqtt.client as mqtt
+import colorsys
+import random
+#import keyboard
 from pynput import mouse
 import threading
 
@@ -64,11 +67,11 @@ color3 = 0
 cklnumber = 0
 string2 = ""
 scroll_value = 0
-listener = mouse.Listener(on_scroll=on_scroll)
-thread = threading.Thread(target=listener.start)
-thread.start()
+# listener = mouse.Listener(on_scroll=on_scroll)
+# thread = threading.Thread(target=listener.start)
+# thread.start()
 while True:
-    select = input("Выберите действие \n 1 - Настройка генератора тактов.\n 2 - Настройка записи.\n 3 - " + stringN + "\n 4 - " + stringN2 + "\n")
+    select = input("Выберите действие \n 1 - Настройка генератора тактов.\n 2 - Настройка записи.\n 3 - Запуск генератора тактов с обратной связью."  + "\n 4 - " + stringN + "\n 5 - " + stringN2 + "\n")
 
     match select:
         case "1":
@@ -81,7 +84,13 @@ while True:
 
         case "3":
             start_time1 = time.time()
-
+            shet = 0
+            shet1 = 0
+            red = 0
+            green = 0
+            blue = 0
+            kol_led = 1
+            kol_led1 = 1
             for k in range(s):
 
                 client.loop()
@@ -89,28 +98,60 @@ while True:
                 if currentMouseX1 < 0:
                     currentMouseX1 = currentMouseX1 * (-1)
                 #print(currentMouseX1)
-                num = int(arduino_map(currentMouseX1, 0, 2560, 59, 0))
+                num = int(arduino_map(currentMouseY, 0, 1439, 59, 0))
+
+
 
 
                 if msg_out != '---':
-                    currentMouseX = int(arduino_map(scroll_value, 0, 40, 0, 2559))
 
-                    if currentMouseX < 853:
-                        color1 = int(arduino_map(currentMouseX, 0, 853, 255, 0))
+                    # if shet == 60:
+                    #     pixel_color = pyautogui.screenshot().getpixel((currentMouseX1, currentMouseY,))
+                    #     shet = 0
+                    #
+                    #     red = pixel_color[0]
+                    #     green = pixel_color[1]
+                    #     blue = pixel_color[2]
+                    # shet += 1
 
-                    if currentMouseX > 1703:
-                        color2 = int(arduino_map(currentMouseX, 1703, 2559, 255, 0))
+                    # currentMouseX = int(arduino_map(scroll_value, 0, 40, 0, 2559))
+                    #
+                    # if currentMouseX < 853:
+                    #     color1 = int(arduino_map(currentMouseX, 0, 853, 255, 0))
+                    #
+                    # if currentMouseX > 1703:
+                    #     color2 = int(arduino_map(currentMouseX, 1703, 2559, 255, 0))
+                    #
+                    # # if 753 < currentMouseX < 1279:
+                    # #     color3 = int(arduino_map(currentMouseX, 653, 1279, 0, 255))
+                    #
+                    # if 753 < currentMouseX < 1803:
+                    #     color3 = int(arduino_map( currentMouseX, 753, 1903, 255, 0))
+                    if shet == 20:
+                       hue = random.randint(1, 100) / 100
+                        # Конвертируем цвет из модели HSV в модель RGB
+                       red, green, blue = [int(x * 255) for x in colorsys.hsv_to_rgb(hue, 1, 1)]
+                       # red = random.randint(1, 255)
+                       # green = random.randint(1, 255)
+                       # blue = random.randint(1, 255)
+                       shet = 0
+                       kol_led = random.randint(1, 5)
+                       kol_led1 = random.randint(-1, 0)
+                       if kol_led1 == 0:
+                          kol_led1 = 1
 
-                    # if 753 < currentMouseX < 1279:
-                    #     color3 = int(arduino_map(currentMouseX, 653, 1279, 0, 255))
 
-                    if 753 < currentMouseX < 1803:
-                        color3 = int(arduino_map( currentMouseX, 753, 1903, 255, 0))
+                    shet += 1
 
-                    for i in range(3):
-                        string2 = "{},{},{},{},".format(num + i, color1, color3, color2)
+                    for i in range(kol_led):
+
+                        num1 = num + i * kol_led1
+                        if num1 > 59:
+                           num1 = 59
+
+                        string2 = "{},{},{},{},".format(num1, red, green, blue)
                         string3 = string3 + string2
-
+                        num1 = 0
                     # if currentMouseX < 853:
                     #     string2 = "{},{},{},{},".format(num, 255, 0, 0)
                     #     string3 = string3 + string2
@@ -156,5 +197,16 @@ while True:
                 print("Обратная связь включена")
                 caseFlag = 0
             print(caseFlag)
-
+        # case "5":
+        #     if caseFlag == 0:
+        #         stringN = "Запуск генератора тактов без обратной связью."
+        #         stringN2 = "Включить обратную связь."
+        #         print("Обратная связь выключена")
+        #         caseFlag = 1
+        #     else:
+        #         stringN = "Запуск генератора тактов с обратной связью."
+        #         stringN2 = "Выключить обратную связь."
+        #         print("Обратная связь включена")
+        #         caseFlag = 0
+        #     print(caseFlag)
 
