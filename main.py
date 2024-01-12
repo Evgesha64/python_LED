@@ -26,8 +26,8 @@ def on_scroll(x, y, dx, dy):
         scroll_value = 0
 
 
-def on_connect(client, userdata, flags, rc):
-    print("Нет подключения " + str(rc))
+#def on_connect(client, userdata, flags, rc):
+#    print("Нет подключения " + str(rc))
 
 
 client.connect(mqtt_broker, mqtt_port, 60)
@@ -46,7 +46,7 @@ def arduino_map(x, in_min, in_max, out_min, out_max):
 
 
 client.on_message = on_message
-client.on_connect = on_connect
+#client.on_connect = on_connect
 screenWidth, screenHeight = pyautogui.size()  # Получаем размер экрана.
 # Создаем список значений от 0 до 2500
 
@@ -71,7 +71,7 @@ scroll_value = 0
 # thread = threading.Thread(target=listener.start)
 # thread.start()
 while True:
-    select = input("Выберите действие \n 1 - Настройка генератора тактов.\n 2 - Настройка записи.\n 3 - Запуск генератора тактов с обратной связью."  + "\n 4 - " + stringN + "\n 5 - " + stringN2 + "\n")
+    select = input("Выберите действие \n 1 - Настройка генератора тактов.\n 2 - Настройка записи. + \n 3 - " + stringN + "\n 4 - " + stringN2 + "\n")
 
     match select:
         case "1":
@@ -91,6 +91,8 @@ while True:
             blue = 0
             kol_led = 1
             kol_led1 = 1
+            status_time = 0
+            invert = 0
             for k in range(s):
 
                 client.loop()
@@ -98,93 +100,64 @@ while True:
                 if currentMouseX1 < 0:
                     currentMouseX1 = currentMouseX1 * (-1)
                 #print(currentMouseX1)
-                num = int(arduino_map(currentMouseY, 0, 1439, 59, 0))
+                numY = int(arduino_map(currentMouseY, 0, 1439, 15, 0))
+                numX = int(arduino_map(currentMouseX1, 0, 2559, 0, 39))
 
+                array = [[0] * 16 for _ in range(39)]
 
-
-
+                if numY % 2 == 1:
+                    numX = 39 - numX+1
+                num = numX + 39 * numY
+               # print(numY, " ", numX, " ", num)
+                num -= 3
+                if num > 312:
+                    num -= 1
+                if num > 600:
+                    num = 600
                 if msg_out != '---':
 
-                    # if shet == 60:
-                    #     pixel_color = pyautogui.screenshot().getpixel((currentMouseX1, currentMouseY,))
-                    #     shet = 0
-                    #
-                    #     red = pixel_color[0]
-                    #     green = pixel_color[1]
-                    #     blue = pixel_color[2]
-                    # shet += 1
-
-                    # currentMouseX = int(arduino_map(scroll_value, 0, 40, 0, 2559))
-                    #
-                    # if currentMouseX < 853:
-                    #     color1 = int(arduino_map(currentMouseX, 0, 853, 255, 0))
-                    #
-                    # if currentMouseX > 1703:
-                    #     color2 = int(arduino_map(currentMouseX, 1703, 2559, 255, 0))
-                    #
-                    # # if 753 < currentMouseX < 1279:
-                    # #     color3 = int(arduino_map(currentMouseX, 653, 1279, 0, 255))
-                    #
-                    # if 753 < currentMouseX < 1803:
-                    #     color3 = int(arduino_map( currentMouseX, 753, 1903, 255, 0))
-                    if shet == 20:
-                       hue = random.randint(1, 100) / 100
-                        # Конвертируем цвет из модели HSV в модель RGB
-                       red, green, blue = [int(x * 255) for x in colorsys.hsv_to_rgb(hue, 1, 1)]
-                       # red = random.randint(1, 255)
-                       # green = random.randint(1, 255)
-                       # blue = random.randint(1, 255)
-                       shet = 0
-                       kol_led = random.randint(1, 5)
-                       kol_led1 = random.randint(-1, 0)
-                       if kol_led1 == 0:
-                          kol_led1 = 1
 
 
-                    shet += 1
 
-                    for i in range(kol_led):
 
-                        num1 = num + i * kol_led1
-                        if num1 > 59:
-                           num1 = 59
+                    rand = random.randint(1, 100) / 100
+                    # Конвертируем цвет из модели HSV в модель RGB
+                    red, green, blue = [int(x * 255) for x in colorsys.hsv_to_rgb(rand, 1, 1)]
+                    for i in range(600):
 
-                        string2 = "{},{},{},{},".format(num1, red, green, blue)
+                        num1 = i
+                        if num1 > 600:
+                           num1 = 600
+                        if(i == num):
+                            string2 = "{},{},{},{},".format(num, 255, 255, 255)
+                        else:
+                            string2 = "{},{},{},{},".format(num1, red, green, blue)
                         string3 = string3 + string2
-                        num1 = 0
-                    # if currentMouseX < 853:
-                    #     string2 = "{},{},{},{},".format(num, 255, 0, 0)
-                    #     string3 = string3 + string2
-                    #
-                    # elif 853 < currentMouseX < 1706:
-                    #     string2 = "{},{},{},{},".format(num, 0, 255, 0)
-                    #     string3 = string3 + string2
-                    #
-                    # elif 1706 < currentMouseX < 2559:
-                    #     string2 = "{},{},{},{},".format(num, 0, 0, 255)
-                    #     string3 = string3 + string2
-
-
-
-
+                            #num1 = 0
+                    print(string3)
                     client.publish(mqtt_topic2, string3)
                     string3 = ""
-                    client.publish(mqtt_topic1, "1")
+                    #client.publish(mqtt_topic1, "1")
 
-                    if num == 59:
+                    if num == 600:
                         num = 0
                     if caseFlag == 0:
                         msg_out = '---'
-
+                    start_time = time.time()
                 elif msg_out == '---':
 
-                    start_time = time.time()
+
+
                     if time.time() - start_time > 5:
-                        print('timeout')
+                        print('Повторная отправка')
+                        msg_out = '1'
+                    elif time.time() - start_time > 2:
                         print('Нет ответа от ESP!!!')
+                    status_time = status_time + (time.time() - start_time)
 
             print(time.time() - start_time1)
-            print("fps-", s * 2 / (time.time() - start_time1))
+            print(status_time)
+            print("fps-", s / (time.time() - start_time1+status_time))
         case "4":
             if caseFlag == 0:
                 stringN = "Запуск генератора тактов без обратной связью."
