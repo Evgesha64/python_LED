@@ -3,6 +3,7 @@ import pyautogui
 import paho.mqtt.client as mqtt
 import colorsys
 import random
+from PIL import Image
 #import keyboard
 from pynput import mouse
 import threading
@@ -96,45 +97,54 @@ while True:
             for k in range(s):
 
                 client.loop()
-                currentMouseX1, currentMouseY = pyautogui.position()  # Получаем XY координаты курсора.
-                if currentMouseX1 < 0:
-                    currentMouseX1 = currentMouseX1 * (-1)
-                #print(currentMouseX1)
-                numY = int(arduino_map(currentMouseY, 0, 1439, 15, 0))
-                numX = int(arduino_map(currentMouseX1, 0, 2559, 0, 39))
+               #  currentMouseX1, currentMouseY = pyautogui.position()  # Получаем XY координаты курсора.
+               #  if currentMouseX1 < 0:
+               #      currentMouseX1 = currentMouseX1 * (-1)
+               #  #print(currentMouseX1)
+               #  numY = int(arduino_map(currentMouseY, 0, 1439, 15, 0))
+               #  numX = int(arduino_map(currentMouseX1, 0, 2559, 0, 39))
+               #
 
-                array = [[0] * 16 for _ in range(39)]
-
-                if numY % 2 == 1:
-                    numX = 39 - numX+1
-                num = numX + 39 * numY
-               # print(numY, " ", numX, " ", num)
-                num -= 3
-                if num > 312:
-                    num -= 1
-                if num > 600:
-                    num = 600
+               #  if numY % 2 == 1:
+               #      numX = 39 - numX+1
+               #  num = numX + 39 * numY
+               # # print(numY, " ", numX, " ", num)
+               #  num -= 3
+               #  if num > 312:
+               #      num -= 1
+               #  if num > 600:
+               #      num = 600
                 if msg_out != '---':
+###########################################
+                    image = Image.open("imageTM.png")
+                    # Изменение размера картинки до 39x15
+                    image = image.resize((39, 15))
+                    # Получение данных о пикселях картинки
+                    pixels = image.load()
+                    # Создание массива для хранения цветов пикселей
+                    pixel_array = []
 
+                    # Проход по каждому пикселю и сохранение его цвета в массиве
+                    for y in range(15):
+                        for x in range(39):
+                            pixel = pixels[x, y]
 
+                            # Извлечение отдельных компонентов цвета (R, G, B)
+                            r, g, b = pixel[:3]
+###############################################
+                            if y % 2 == 1:
+                                x = 39 - x+1
+                            num = x + 39 * y
 
+                            num -= 3
+                            if num > 312:
+                                num -= 1
+                            if num > 600:
+                                num = 600
 
+                            string2 = "{},{},{},{},".format(num, r, g, b)
+                            string3 = string3 + string2
 
-                    rand = random.randint(1, 100) / 100
-                    # Конвертируем цвет из модели HSV в модель RGB
-                    red, green, blue = [int(x * 255) for x in colorsys.hsv_to_rgb(rand, 1, 1)]
-                    for i in range(600):
-
-                        num1 = i
-                        if num1 > 600:
-                           num1 = 600
-                        if(i == num):
-                            string2 = "{},{},{},{},".format(num, 255, 255, 255)
-                        else:
-                            string2 = "{},{},{},{},".format(num1, red, green, blue)
-                        string3 = string3 + string2
-                            #num1 = 0
-                    print(string3)
                     client.publish(mqtt_topic2, string3)
                     string3 = ""
                     #client.publish(mqtt_topic1, "1")
