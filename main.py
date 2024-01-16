@@ -1,11 +1,10 @@
 import time
-from typing import List
-
 import pyautogui
 import paho.mqtt.client as mqtt
+import io
+from PIL import Image
 import colorsys
 import random
-from PIL import Image
 # import keyboard
 from pynput import mouse
 import threading
@@ -123,9 +122,8 @@ while True:
                                 continue
                             string2 = "{},{},{},{},".format(num, r, g, b)
                             string3 = string3 + string2
-                            string3 = "."
-                    stringMY: list[int] = [255,255,255]
-                    client.publish(mqtt_topic2, *stringMY )
+
+                    client.publish(mqtt_topic2, string3)
                     string3 = ""
                     xpix -= 1
                     if xpix == 0:
