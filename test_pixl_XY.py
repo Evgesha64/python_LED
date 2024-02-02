@@ -62,6 +62,7 @@ def fun_start():
     while True:
 
         if msg_out != 'stop':
+            time.sleep(1)
             for y in range(600):
                 r, g, b = imageNumPixelRGB(y, pixels, sdvig)
                 if r > 50:
@@ -71,13 +72,11 @@ def fun_start():
                 if b > 50:
                     b = 50
                 data.append((g << 16) | (r << 8) | b)
-            payload = struct.pack('I' * len(data), *data)
-
-            data = []
             sdvig += 1
             if sdvig == 135:
                 sdvig = 0
             # time.sleep(0.02)
+##################################################################################################################################################
             for i in range(60):
                 if regim == i:
                     data.append((0 << 16) | (255 << 8) | 0)
@@ -86,10 +85,10 @@ def fun_start():
             regim += 1
             if regim == 61:
                 regim = 0
-            payload2 = struct.pack('I' * len(data), *data)
+            payload = struct.pack('I' * len(data), *data)
 
             client.publish("topic_num_RGB", payload)
-            client.publish("topic_num_RGB2", payload2)
+
             data = []
             msg_out = 'stop'
             while msg_out == 'stop':
