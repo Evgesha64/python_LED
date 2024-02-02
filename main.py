@@ -81,8 +81,7 @@ num = 0
 string2 = ""
 
 while True:
-    select = input(
-        "Выберите действие \n 1 - Настройка генератора тактов.\n 2 - Настройка записи. + \n 3 - " + stringN + "\n 4 - " + stringN2 + "\n")
+    select = input("Выберите действие \n 1 - Настройка генератора тактов.\n 2 - Настройка записи. + \n 3 - " + stringN + "\n 4 - " + stringN2 + "\n")
 
     match select:
         case "1":
